@@ -15,9 +15,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
-logging.getLogger().log(
-    level=logging.INFO, 
-    msg='PORT = ' + str(PORT))
+logging.getLogger().log(level=logging.INFO, msg=f'PORT = {PORT}')
 
 def start(update, context):
     context.bot.send_message(
@@ -100,7 +98,7 @@ if __name__ == '__main__':
 
     # responsible for receiving messages from Telegram
     updater = Updater(TOKEN, use_context=True)
-    
+
     # defining available bot commands
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
@@ -118,8 +116,7 @@ if __name__ == '__main__':
         updater.start_webhook(listen="0.0.0.0",
                               port=PORT,
                               url_path=TOKEN)
-        updater.bot.set_webhook(
-            "https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
+        updater.bot.set_webhook(f"https://{HEROKU_APP_NAME}.herokuapp.com/{TOKEN}")
     else:
         logger.error("ERROR: No MODE specified!")
         sys.exit(1)
